@@ -1,10 +1,9 @@
 import json
 import os
 import boto3
-from io import BytesIO
 import gzip
 from datetime import datetime
-def handlerPost(event, context):
+def handleLogFile(event, context):
     bucket_name = os.environ.get('BUCKET')
     s3 = boto3.client('s3')
 

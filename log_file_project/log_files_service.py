@@ -14,7 +14,7 @@ class LogFileService(Construct):
         handler = lambda_.Function(self, "LogFileHandler",
                     runtime=lambda_.Runtime.PYTHON_3_12,
                     code=lambda_.Code.from_asset("resources"),
-                    handler="log_file_lamda.handlerPost",
+                    handler="log_file_lamda.handleLogFile",
                     environment=dict(
                     BUCKET=bucket.bucket_name,
                     BUCKETCOMPRESS=bucketCompress.bucket_name)
@@ -29,4 +29,4 @@ class LogFileService(Construct):
         get_logfile_integration = apigateway.LambdaIntegration(handler,
                 request_templates={"application/json": '{ "statusCode": "200" }'})
 
-        api.root.add_method("POST", get_logfile_integration)   # GET /
+        api.root.add_method("POST", get_logfile_integration)   # POST /
