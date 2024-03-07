@@ -10,7 +10,7 @@ cdk init --language python
 source .venv/bin/activate
 pip install -r requirements.txt
 
-creating resource folder to add all the lamda function inside it by running mkdir resources
+creating resource folder to add all the lamda function inside it  by running mkdir resources
 after that adding the log_file_lamda.py that contains all lamda files 
 
 adding log_files_service.py to create the buckets and the api gateway and handling the lamda functions 
@@ -29,7 +29,7 @@ Deploy and test the app
 cdk bootstrap aws://ACCOUNT-NUMBER/REGION
 cdk deploy
 
-If the deployment succeeds the url appears  -> https://GUID.execute-api-REGION.amazonaws.com/prod/ ;
+If the deployment succeeds the url appears  -> https://GUID.execute-api-REGION.amazonaws.com/prod/ ;  -> https://meen9hbh0b.execute-api.eu-west-3.amazonaws.com/prod/
 
 
 
