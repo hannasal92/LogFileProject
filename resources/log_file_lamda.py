@@ -16,10 +16,10 @@ def handlerPost(event, context):
         file_content_convert = json.dumps(file_content)
         try:
             s3.put_object(Body=file_content_convert,Bucket=bucket_name,Key=object_key)
-            compressLogFileHanlder(event, context)
+            compressResponse = compressLogFileHanlder(event, context)
             return {
                     'statusCode': 200,
-                    'body': json.dumps('Log file '+file_name+' processed and stored in bucket '+bucket_name)
+                    'body': json.dumps('Log file '+file_name+' processed and stored in bucket '+bucket_name + " " + compressResponse)
             }
         except Exception as e:
                     print(f"An error occurred: {str(e)}")
@@ -35,8 +35,9 @@ def handlerPost(event, context):
         }
 
 def compressLogFileHanlder(event, context):
-    
+
     bucket_name = os.environ.get('BUCKETCOMPRESS')
+    
     file_content = event['body']
     log_data = json.dumps(file_content)
     file_name = 'log-file'+getMillisecondDate()
@@ -51,15 +52,10 @@ def compressLogFileHanlder(event, context):
     s3 = boto3.client('s3')
     try:
         s3.put_object(Body=compressed_data, Bucket=bucket_name, Key=compressed_file_key)
-        return {
-            'statusCode': 200,
-            'body': json.dumps('Log file compressed and uploaded successfully '+compressed_file_key)
-        }
+        return 'Log file '+compressed_file_key+' compressed and stored in bucket '+bucket_name
     except Exception as e:
-        return {
-            'statusCode': 500,
-            'body': json.dumps(f'Error compressing and uploading log file: {str(e)}')
-        }
+        return f'Error compressing and uploading log file: {str(e)}'
+
            
 def getMillisecondDate():
     (dt, micro) = datetime.utcnow().strftime('%Y%m%d%H%M%S.%f').split('.')
