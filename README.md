@@ -1,6 +1,38 @@
 
 # Welcome to your CDK Python project!
 
+
+first step 
+Create an AWS CDK app
+mkdir LogFileProject
+cd LogFileProject
+cdk init --language python
+source .venv/bin/activate
+pip install -r requirements.txt
+
+creating resource folder to add all the lamda function inside it by running mkdir resources
+after that adding the log_file_lamda.py that contains all lamda files 
+
+adding log_files_service.py to create the buckets and the api gateway and handling the lamda functions 
+
+after we finishing everything we should export the AWS_ACCESS_KEY_ID , AWS_SECRET_ACCESS_KEY , AWS_DEFAULT_REGION by these commands 
+
+export AWS_ACCESS_KEY_ID=XXXXXXXXXXXX
+export AWS_SECRET_ACCESS_KEY=XXXXXXXXXXXXXXX
+export AWS_DEFAULT_REGION=eu-west-3
+
+we get the values in the aws account security credentials
+
+run cdk synth to be sure the app runs and synthesizes a stack
+
+Deploy and test the app
+cdk bootstrap aws://ACCOUNT-NUMBER/REGION
+cdk deploy
+
+If the deployment succeeds the url appears  -> https://GUID.execute-api-REGION.amazonaws.com/prod/ ;
+
+
+
 This is a blank project for CDK development with Python.
 
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
