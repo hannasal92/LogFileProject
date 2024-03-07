@@ -1,6 +1,9 @@
 
 # Welcome to your CDK Python project!
 
+we should install npm , pip and aws cli 
+
+to install aws cli => npm install -g aws-cdk
 
 first step 
 Create an AWS CDK app
@@ -12,6 +15,8 @@ pip install -r requirements.txt
 
 creating resource folder to add all the lamda function inside it  by running mkdir resources
 after that adding the log_file_lamda.py that contains all lamda files 
+
+we should install boto3 by pip install boto3 so we can access s3 (buckets)
 
 adding log_files_service.py to create the buckets and the api gateway and handling the lamda functions 
 
