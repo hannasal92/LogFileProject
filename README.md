@@ -24,7 +24,7 @@ after we finishing everything we should export the AWS_ACCESS_KEY_ID , AWS_SECRE
 
 export AWS_ACCESS_KEY_ID=XXXXXXXXXXXX
 export AWS_SECRET_ACCESS_KEY=XXXXXXXXXXXXXXX
-export AWS_DEFAULT_REGION=eu-west-3
+export AWS_DEFAULT_REGION=xxxxxx
 
 we get the values in the aws account security credentials
 
