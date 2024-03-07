@@ -30,7 +30,7 @@ we get the values in the aws account security credentials
 run cdk synth to be sure the app runs and synthesizes a stack
 
 Deploy and test the app
-cdk bootstrap aws://ACCOUNT-NUMBER/REGION
+cdk bootstrap aws://ACCOUNT-NUMBER/REGION -> this creates a staging bucket that the AWS CDK uses to deploy stacks containing assets
 cdk deploy
 
 If the deployment succeeds the url appears  -> https://GUID.execute-api-REGION.amazonaws.com/prod/ ;  -> https://meen9hbh0b.execute-api.eu-west-3.amazonaws.com/prod/
