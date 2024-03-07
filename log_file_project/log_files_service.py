@@ -9,17 +9,19 @@ class LogFileService(Construct):
         super().__init__(scope, id)
 
         bucket = s3.Bucket(self, "LogFileStore")
+        bucketCompress = s3.Bucket(self, "LogFileCompressStore")
 
         handler = lambda_.Function(self, "LogFileHandler",
                     runtime=lambda_.Runtime.PYTHON_3_12,
                     code=lambda_.Code.from_asset("resources"),
                     handler="log_file_lamda.handlerPost",
                     environment=dict(
-                    BUCKET=bucket.bucket_name)
+                    BUCKET=bucket.bucket_name,
+                    BUCKETCOMPRESS=bucketCompress.bucket_name)
                     )
 
         bucket.grant_read_write(handler)
-
+        bucketCompress.grant_read_write(handler)
         api = apigateway.RestApi(self, "logFile-api",
                   rest_api_name="LogFile Service",
                   description="This service serves logFile.")
