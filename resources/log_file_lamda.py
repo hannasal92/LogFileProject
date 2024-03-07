@@ -35,20 +35,31 @@ def handlerPost(event, context):
         }
 
 def compressLogFileHanlder(event, context):
-        bucket_name = os.environ.get('BUCKETCOMPRESS')
-        file_name = 'log-file'+getMillisecondDate()+'.gz'
-        compressed_file_key = 'logs/'+file_name
-        s3 = boto3.client('s3')
-        file_content = event['body']
-        
-        compressed = BytesIO()
-        try:
-            with gzip.GzipFile(fileobj=compressed, mode='w') as f:
-                json_response = json.dumps(file_content)
-                s3.put_object(Body=json_response.encode('utf-8'),Bucket=bucket_name,Key=compressed_file_key)
-
-        except Exception as e:
-           print(f"An error occurred while compressing the file: {str(e)}")
+    
+    bucket_name = os.environ.get('BUCKETCOMPRESS')
+    file_content = event['body']
+    log_data = json.dumps(file_content)
+    file_name = 'log-file'+getMillisecondDate()
+    
+    # Compress the log data using gzip
+    compressed_data = gzip.compress(log_data.encode())
+    
+    # Define the file key for the compressed file
+    compressed_file_key = f"{file_name}.gz"
+    
+    # Upload the compressed file to S3
+    s3 = boto3.client('s3')
+    try:
+        s3.put_object(Body=compressed_data, Bucket=bucket_name, Key=compressed_file_key)
+        return {
+            'statusCode': 200,
+            'body': json.dumps('Log file compressed and uploaded successfully '+compressed_file_key)
+        }
+    except Exception as e:
+        return {
+            'statusCode': 500,
+            'body': json.dumps(f'Error compressing and uploading log file: {str(e)}')
+        }
            
 def getMillisecondDate():
     (dt, micro) = datetime.utcnow().strftime('%Y%m%d%H%M%S.%f').split('.')
