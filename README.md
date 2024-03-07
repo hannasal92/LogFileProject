@@ -13,8 +13,7 @@ cdk init --language python
 source .venv/bin/activate
 pip install -r requirements.txt
 
-creating resource folder to add all the lamda function inside it  by running mkdir resources
-after that adding the log_file_lamda.py that contains all lamda files 
+creating resource folder and add log_file_lamda.py to add all the lamda function inside it by running mkdir resources
 
 we should install boto3 by pip install boto3 so we can access s3 (buckets)
 
